@@ -4,9 +4,13 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        php-versions: ['7.2', '7.3', '7.4']
 
-
+    name: Test on ${{ matrix.os }} with PHP ${{ matrix.php-versions }}
     steps:
       - uses: actions/checkout@v2
 
@@ -20,10 +24,20 @@ jobs:
           echo "Job Context: $JOB_CONTEXT"
           echo "Done!"
 
+      - name: Greeting if Windows
+        run: echo "Hey from Win2!"
+        if: ${{ matrix.os }} == windows-latest
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v1
+        with:
+          php-version: ${{ matrix.php-versions }}
+          coverage: none
+
       - name: Install dependencies
-        working-directory: ./lessons/03-Continious_Integration/03.1-Executing_tests
+        working-directory: ./lessons/03-Continious_Integration/03.3-Build_Matrix
         run: composer install --ignore-platform-reqs
 
       - name: Run the tests
-        working-directory: ./lessons/03-Continious_Integration/03.1-Executing_tests
+        working-directory: ./lessons/03-Continious_Integration/03.3-Build_Matrix
         run: composer phpunit
