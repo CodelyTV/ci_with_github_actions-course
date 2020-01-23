@@ -10,4 +10,11 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Hello Codelies!
-        run: echo "Hello!!!! from ${{ github.event_name }}"
+        run: echo "Hello!!!! from ${{ github.workflow }} triggered by the ${{ github.event_name }} done by ${{ github.actor }}"
+
+      - name: 😊 More and more
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: |
+          echo "Job Context: $JOB_CONTEXT"
+          echo "Done!"
