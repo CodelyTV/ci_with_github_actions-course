@@ -25,8 +25,8 @@ jobs:
           echo "Done!"
 
       - name: Greeting if Windows
-        run: echo "Hey from Win2!"
         if: matrix.os == windows-latest
+        run: echo "Hey from Win2!"
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v1
