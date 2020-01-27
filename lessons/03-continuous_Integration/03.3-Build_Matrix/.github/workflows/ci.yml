@@ -35,9 +35,9 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        working-directory: ./lessons/03-Continious_Integration/03.3-Build_Matrix
+        working-directory: ./lessons/03-Continuous_Integration/03.3-Build_Matrix
         run: composer install --ignore-platform-reqs
 
       - name: Run the tests
-        working-directory: ./lessons/03-Continious_Integration/03.3-Build_Matrix
+        working-directory: ./lessons/03-Continuous_Integration/03.3-Build_Matrix
         run: composer phpunit
