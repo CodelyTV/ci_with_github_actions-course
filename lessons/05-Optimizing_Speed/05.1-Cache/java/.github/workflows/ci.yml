@@ -22,3 +22,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Assemble
+        run: ./gradlew assemble --warning-mode all
+
+      - name: Check
+        run: ./gradlew check --warning-mode all
