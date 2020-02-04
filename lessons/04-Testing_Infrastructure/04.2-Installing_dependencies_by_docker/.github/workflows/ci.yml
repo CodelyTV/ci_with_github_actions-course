@@ -1,0 +1,31 @@
+name: First workflow
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Hello Codelies!
+        run: echo "Hello!!!! from ${{ github.workflow }} triggered by the ${{ github.event_name }} done by ${{ github.actor }}"
+
+      - name: 😊 More and more
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: |
+          echo "Job Context: $JOB_CONTEXT"
+          echo "Done!"
+
+      - name: Install infra dependencies
+        run: sh etc/install.sh
+
+      - name: Install application dependencies
+        working-directory: ./lessons/04-Testing_Infrastructure/04.1-Installing_dependencies_by_hand
+        run: composer install --ignore-platform-reqs
+
+      - name: Run the tests
+        working-directory: ./lessons/04-Testing_Infrastructure/04.1-Installing_dependencies_by_hand
+        run: composer phpunit

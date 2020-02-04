@@ -1,31 +1,30 @@
-name: First workflow
+name: CI
 
 on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-18.04
+
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Hello Codelies!
-        run: echo "Hello!!!! from ${{ github.workflow }} triggered by the ${{ github.event_name }} done by ${{ github.actor }}"
+      - name: Install dependencies
+        working-directory: ./lessons/04-Testing_Infrastructure/04.2-Installing_dependencies_by_docker
+        run: make composer-install
 
-      - name: 😊 More and more
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
+      - name: Start all the environment
+        working-directory: ./lessons/04-Testing_Infrastructure/04.2-Installing_dependencies_by_docker
+        run: make start
+
+      - name: Wait for the environment to get up
         run: |
-          echo "Job Context: $JOB_CONTEXT"
-          echo "Done!"
-
-      - name: Install infra dependencies
-        run: sh etc/install.sh
-
-      - name: Install application dependencies
-        working-directory: ./lessons/04-Testing_Infrastructure/04.1-Installing_dependencies_by_hand
-        run: composer install --ignore-platform-reqs
+          while ! docker exec codelytv-php_ddd_skeleton-mooc-mysql mysqladmin --user=root --password= --host "127.0.0.1" ping --silent &> /dev/null ; do
+              echo "Waiting for database connection..."
+              sleep 2
+          done
 
       - name: Run the tests
-        working-directory: ./lessons/04-Testing_Infrastructure/04.1-Installing_dependencies_by_hand
-        run: composer phpunit
+        working-directory: ./lessons/04-Testing_Infrastructure/04.2-Installing_dependencies_by_docker
+        run: make test
