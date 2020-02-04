@@ -4,8 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-18.04
 
     steps:
       - uses: actions/checkout@v2
@@ -20,10 +19,13 @@ jobs:
           echo "Job Context: $JOB_CONTEXT"
           echo "Done!"
 
-      - name: Install dependencies
-        working-directory: ./lessons/03-Continuous_Integration/03.1-Executing_tests
+      - name: Install infra dependencies
+        run: sh etc/install.sh
+
+      - name: Install application dependencies
+        working-directory: ./lessons/04-Testing_Infrastructure/04.1-Installing_dependencies_by_hand
         run: composer install --ignore-platform-reqs
 
       - name: Run the tests
-        working-directory: ./lessons/03-Continuous_Integration/03.1-Executing_tests
+        working-directory: ./lessons/04-Testing_Infrastructure/04.1-Installing_dependencies_by_hand
         run: composer phpunit
