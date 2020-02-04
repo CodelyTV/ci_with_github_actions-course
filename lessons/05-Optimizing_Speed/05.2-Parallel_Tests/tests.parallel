@@ -1,0 +1,2 @@
+echo -e "\n\n\e[40;38;5;82mPHPUNIT\e[0m\n"; ./vendor/bin/phpunit --exclude-group='disabled' --log-junit build/test_results/phpunit/junit.xml tests
+echo -e "\n\n\e[40;38;5;82mBEHAT\e[0m\n"; ./vendor/bin/behat -p mooc_backend --format=progress -v

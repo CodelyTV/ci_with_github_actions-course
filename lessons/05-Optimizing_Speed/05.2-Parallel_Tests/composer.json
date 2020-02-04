@@ -1,0 +1,81 @@
+{
+  "name": "codelytv/ddd-skeleton",
+  "license": "MIT",
+  "type": "project",
+  "description": "DDD php Skeleton - Monorepository",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/Behat/Behat",
+      "comment": "Waiting for new tag"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/DonCallisto/MinkExtension",
+      "comment": "Waiting for https://github.com/Behat/MinkExtension/pull/355"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/ruudk/MinkBrowserKitDriver",
+      "comment": "Waiting for https://github.com/minkphp/Mink/issues/787 and then a new release"
+    }
+  ],
+  "require": {
+    "php": "7.4",
+
+    "ext-amqp": "*",
+    "ext-apcu": "*",
+    "ext-json": "*",
+    "ext-zend-opcache": "*",
+    "ext-pdo": "*",
+
+    "symfony/framework-bundle": "^5.0",
+    "symfony/messenger": "^5.0",
+    "symfony/dotenv": "^5.0",
+    "symfony/yaml": "^5.0",
+    "symfony/twig-bundle": "^5.0",
+    "symfony/validator": "^5.0",
+
+    "lambdish/phunctional": "^2.0",
+
+    "ramsey/uuid": "^3.8",
+
+    "doctrine/dbal": "^2.9",
+    "doctrine/orm": "^2.6",
+    "ocramius/proxy-manager": "^2.6",
+
+    "elasticsearch/elasticsearch": "^7.3",
+    "monolog/monolog": "^2.0"
+  },
+  "require-dev": {
+    "ext-xdebug": "*",
+
+    "roave/security-advisories": "dev-master",
+
+    "behat/behat": "dev-master as 3.6",
+    "behat/mink-extension": "dev-patch-4",
+    "behat/mink-browserkit-driver": "dev-symfony-5",
+    "friends-of-behat/symfony-extension": "2.1.0-BETA.1",
+
+    "phpunit/phpunit": "^8.5",
+    "mockery/mockery": "^1.2",
+
+    "fzaninotto/faker": "^1.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "CodelyTv\\Apps\\Mooc\\Backend\\": "apps/mooc/backend/src",
+      "CodelyTv\\Apps\\Mooc\\Frontend\\": "apps/mooc/frontend/src",
+
+      "CodelyTv\\Apps\\Backoffice\\Backend\\": "apps/backoffice/backend/src",
+      "CodelyTv\\Apps\\Backoffice\\Frontend\\": "apps/backoffice/frontend/src",
+
+      "CodelyTv\\": ["src"]
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "CodelyTv\\Tests\\": ["tests/src"]
+    }
+  }
+}
