@@ -1,24 +1,22 @@
-name: CI
+name: First workflow
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
+  ##Nombre arbitrario
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
+      - name: Hello Codelies!
+        run: echo "Hello!!!! from ${{ github.workflow }} triggered by the ${{ github.event_name }} done by ${{ github.actor }}"
 
-      - uses: actions/cache@v1
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
+      - name: 😊 More and more
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+          ## Mas de una línea |
+        run: |
+          echo "Job Context: $JOB_CONTEXT"
+          echo "Done!"
