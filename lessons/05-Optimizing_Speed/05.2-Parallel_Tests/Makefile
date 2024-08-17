@@ -19,8 +19,8 @@ composer composer-install composer-update:
 			--no-interaction
 
 reload:
-	@docker-compose exec php-fpm kill -USR2 1
-	@docker-compose exec nginx nginx -s reload
+	@docker compose exec php-fpm kill -USR2 1
+	@docker compose exec nginx nginx -s reload
 
 test:
 	@docker exec codelytv-php_ddd_skeleton-php make run-tests
@@ -45,10 +45,10 @@ destroy: CMD=down
 # Usage: `make doco CMD="ps --services"`
 # Usage: `make doco CMD="build --parallel --pull --force-rm --no-cache"`
 doco start stop destroy:
-	@docker-compose $(CMD)
+	@docker compose $(CMD)
 
 rebuild:
-	docker-compose build --pull --force-rm --no-cache
+	docker compose build --pull --force-rm --no-cache
 	make deps
 	make start
 
